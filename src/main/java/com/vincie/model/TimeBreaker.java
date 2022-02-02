@@ -12,8 +12,8 @@ public class TimeBreaker {
     private static final double MAX_PAGE_MODIFIER = 0.10; //fraction of any division of time
     public static final double MIN_ALLOWABLE_HOURS = 0.2;
 
-    private final List<Double> inputHours = new ArrayList<>();
-    private final List<HoursAndPages> outputHoursAndPages = new ArrayList<>();
+    private List<Double> inputHours = new ArrayList<>();
+    private List<HoursAndPages> outputHoursAndPages = new ArrayList<>();
     private int totalPages;
     private double totalHours;
 
@@ -131,7 +131,7 @@ public class TimeBreaker {
     }
 
     public void setInputHours(List<Double> inputHours) {
-        this.inputHours.addAll(inputHours);
+        this.inputHours = inputHours;
     }
 
     public void addInputHours(double inputHours) {
@@ -139,6 +139,6 @@ public class TimeBreaker {
     }
 
     private void setOutputHoursAndPages(List<HoursAndPages> hoursAndPages) {
-        outputHoursAndPages.addAll(hoursAndPages);
+        outputHoursAndPages = hoursAndPages;
     }
 }
