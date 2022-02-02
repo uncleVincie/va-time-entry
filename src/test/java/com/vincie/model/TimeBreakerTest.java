@@ -80,6 +80,61 @@ public class TimeBreakerTest {
 
     @Test
     public void run_runTwice_returnsSameAsRunningOnce() {
+        List<Double> inputTimes = new ArrayList<>();
+        inputTimes.add(3.0);
+        inputTimes.add(0.5);
+        inputTimes.add(6.0);
+        inputTimes.add(3.1);
+        inputTimes.add(0.1);
+
+        final double expectedHours = inputTimes.stream().mapToDouble(d -> d).sum();
+        final int expectedPages = 1000;
+
+        TimeBreaker timeBreaker = new TimeBreaker();
+        timeBreaker.setInputHours(inputTimes);
+        timeBreaker.setTotalPages(expectedPages);
+        //run several times
+        timeBreaker.run();
+        timeBreaker.run();
+        timeBreaker.run();
+        List<HoursAndPages> outputTimes = timeBreaker.getOutputHoursAndPages();
+
+        final double actualHours = outputTimes.stream().mapToDouble(hp -> hp.getHours()).sum();
+        final int actualPages = outputTimes.stream().mapToInt(hp -> hp.getPages()).sum();
+
+        assertEquals(expectedHours,actualHours,0.01);
+        assertEquals(expectedPages,actualPages);
+        outputTimes.stream().forEach(hp -> assertTrue(hp.getHours() <= TimeBreaker.MAX_ALLOWABLE_HOURS));
+        outputTimes.stream().forEach(hp -> assertTrue(hp.getHours() >= TimeBreaker.MIN_ALLOWABLE_HOURS));
+    }
+
+    @Test
+    public void run_givenMultipleInputs_returnsExpected() {
+        List<Double> inputTimes = new ArrayList<>();
+        inputTimes.add(3.0);
+        inputTimes.add(0.5);
+        inputTimes.add(6.0);
+        inputTimes.add(3.1);
+        inputTimes.add(0.1);
+
+        final double expectedHours = inputTimes.stream().mapToDouble(d -> d).sum();
+        final int expectedPages = 1000;
+
+        TimeBreaker timeBreaker = new TimeBreaker();
+        timeBreaker.setInputHours(inputTimes);
+        timeBreaker.setTotalPages(expectedPages);
+        timeBreaker.setTotalPages(expectedPages);
+        timeBreaker.setInputHours(inputTimes);
+        timeBreaker.run();
+        List<HoursAndPages> outputTimes = timeBreaker.getOutputHoursAndPages();
+
+        final double actualHours = outputTimes.stream().mapToDouble(hp -> hp.getHours()).sum();
+        final int actualPages = outputTimes.stream().mapToInt(hp -> hp.getPages()).sum();
+
+        assertEquals(expectedHours,actualHours,0.01);
+        assertEquals(expectedPages,actualPages);
+        outputTimes.stream().forEach(hp -> assertTrue(hp.getHours() <= TimeBreaker.MAX_ALLOWABLE_HOURS));
+        outputTimes.stream().forEach(hp -> assertTrue(hp.getHours() >= TimeBreaker.MIN_ALLOWABLE_HOURS));
 
     }
 
