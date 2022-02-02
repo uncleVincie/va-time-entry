@@ -78,4 +78,9 @@ public class TimeBreakerTest {
 
     }
 
+    @Test
+    public void run_runTwice_returnsSameAsRunningOnce() {
+
+    }
+
 }
