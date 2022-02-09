@@ -9,7 +9,7 @@ import java.util.Random;
 public class TimeBreaker {
 
     public static final double MAX_ALLOWABLE_HOURS = 3.0;
-    private static final double MAX_PAGE_MODIFIER = 0.10; //fraction of any division of time
+    public static final double MAX_PAGE_MODIFIER = 0.10; //fraction of any division of time
     public static final double MIN_ALLOWABLE_HOURS = 0.2;
 
     private List<Double> inputHours = new ArrayList<>();
@@ -82,12 +82,11 @@ public class TimeBreaker {
                 HoursAndPages hp = combinedHours.get(i);
                 if (hp.getHours() + totalStubHours < MAX_ALLOWABLE_HOURS) {
                     combinedHours.set(i, new HoursAndPages(hp.getHours()+totalStubHours, hp.getPages()+totalStubPages));
-                    break;
+                    return combinedHours;
                 }
             }
-        } else {
-            combinedHours.add(new HoursAndPages(totalStubHours, totalStubPages));
         }
+        combinedHours.add(new HoursAndPages(totalStubHours, totalStubPages)); //if no place to put the stub was found
 
         return combinedHours;
     }
