@@ -22,6 +22,7 @@ test {
 
 pitest {
     junit5PluginVersion = '0.14'
+    targetClasses = ['com.vincie.model.*']
 }
 
 jar {

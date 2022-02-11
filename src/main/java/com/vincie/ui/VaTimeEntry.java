@@ -12,11 +12,14 @@ import java.awt.event.ActionListener;
 
 public class VaTimeEntry {
 
+    public static final String TOTAL_NUMBER_OF_PAGES_ARE_BAD = "Total number of pages are bad!";
+    public static final String ONE_OR_MORE_INPUT_HOURS_ARE_BAD = "One or more input hours are bad!";
     TimeBreaker timeBreaker;
     private JTextArea outputField;
     private JTextArea inputHoursField;
     private JTextField totalHoursField;
     private JTextField outputTotals;
+    private JButton computeButton;
 
     public VaTimeEntry(TimeBreaker timeBreaker) {
         this.timeBreaker = timeBreaker;
@@ -27,12 +30,12 @@ public class VaTimeEntry {
         app.buildGui();
     }
 
-    private void buildGui() {
+    public void buildGui() {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //calculate button
-        JButton computeButton = new JButton("Calculate");
+        computeButton = new JButton("Calculate");
         frame.getContentPane().add(BorderLayout.SOUTH, computeButton);
         computeButton.addActionListener(new CalculateListener());
 
@@ -90,7 +93,7 @@ public class VaTimeEntry {
             try {
                 inputHours.add(Double.parseDouble(input));
             } catch (NumberFormatException e) {
-                throw new Exception("One or more input hours are bad!");
+                throw new Exception(ONE_OR_MORE_INPUT_HOURS_ARE_BAD);
             }
         }
         return inputHours;
@@ -100,7 +103,7 @@ public class VaTimeEntry {
         try {
             return Integer.parseInt(totalHoursField.getText());
         } catch (NumberFormatException e) {
-            throw new Exception("Total number of pages are bad!");
+            throw new Exception(TOTAL_NUMBER_OF_PAGES_ARE_BAD);
         }
     }
 
@@ -117,6 +120,26 @@ public class VaTimeEntry {
         }
         String totalsString = String.format("%.1f", totalHours) + " , " + totalPages;
         outputTotals.setText(totalsString);
+    }
+
+    public JTextArea getOutputField() {
+        return outputField;
+    }
+
+    public JTextArea getInputHoursField() {
+        return inputHoursField;
+    }
+
+    public JTextField getTotalHoursField() {
+        return totalHoursField;
+    }
+
+    public JTextField getOutputTotals() {
+        return outputTotals;
+    }
+
+    public JButton getComputeButton() {
+        return computeButton;
     }
 
     private class CalculateListener implements ActionListener {
