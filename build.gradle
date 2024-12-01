@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'info.solidsoft.pitest' version '1.7.0'
+    id 'info.solidsoft.pitest' version '1.15.0'
 }
 
 group 'com.vincie'
@@ -21,7 +21,7 @@ test {
 }
 
 pitest {
-    junit5PluginVersion = '0.14'
+    junit5PluginVersion = '1.0.0'
     targetClasses = ['com.vincie.model.*']
 }
 
